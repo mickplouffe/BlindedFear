@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private float _fireDelay = 0.25f;
     [SerializeField]
     private float _fireDistance = 250f;
+    [SerializeField]
+    private float _damageAmount = 1f;
     private float _newFireTime;
 
     // Update is called once per frame
@@ -27,6 +29,13 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo, _fireDistance))
             {
                 Debug.Log("We hit " + hitInfo.collider.name);
+                IDamagable damagable = hitInfo.collider.gameObject.GetComponent<IDamagable>();
+
+                if (damagable != null)
+                {
+                    damagable.Damage(_damageAmount);
+                
+                }
             }
         }    
     }
