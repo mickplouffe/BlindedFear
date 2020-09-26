@@ -6,6 +6,8 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour, IDamagable
 {
 
+    public static event Action<MonsterController> OnMonsterDisable;
+
     [SerializeField]
     private float _enemyValue = 5f;     //Used to store the points this enemy grants on death
     [SerializeField]
@@ -32,6 +34,7 @@ public class MonsterController : MonoBehaviour, IDamagable
     public void Death()
     {
         //return to pool
+        OnMonsterDisable?.Invoke(this);
         //disable monster
         Debug.Log("I'm dead " + gameObject.name);
     }

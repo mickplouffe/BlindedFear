@@ -719,11 +719,13 @@ MonoBehaviour:
   _monsterPrefab: {fileID: 4218734769536609990, guid: 8d9e7619a179999479314770c84bb022,
     type: 3}
   _monsters: []
+  _monsterParent: {fileID: 1744275108}
   _spawnPoints:
   - {fileID: 1719918082}
   - {fileID: 1590718587}
   - {fileID: 982875832}
   - {fileID: 1606741693}
+  _maxEnemies: 4
   _spawnDelay: 3
 --- !u!4 &1399087750
 Transform:
@@ -1554,6 +1556,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PrototypeMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218734769536609985, guid: 8d9e7619a179999479314770c84bb022,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4218734769536609989, guid: 8d9e7619a179999479314770c84bb022,
         type: 3}
