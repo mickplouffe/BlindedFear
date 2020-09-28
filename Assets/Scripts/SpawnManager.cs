@@ -27,14 +27,14 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     private void OnEnable()
     {
         GameManager.OnGameStart += BeginGame;
-        GameManager.OnGameEnd += EndGame;
+        MonsterEndGoal.OnEnemyReached += EndGame;
         MonsterController.OnMonsterDisable += ReturnToPool;
     }
 
     private void OnDisable()
     {
         GameManager.OnGameStart -= BeginGame;
-        GameManager.OnGameEnd -= EndGame;
+        MonsterEndGoal.OnEnemyReached -= EndGame;
         MonsterController.OnMonsterDisable -= ReturnToPool;
     }
 
@@ -65,7 +65,9 @@ public class SpawnManager : MonoSingleton<SpawnManager>
                 //grab random spawn point
                 Transform randomSpawn = _spawnPoints[Random.Range(0, _spawnPoints.Count)].transform;
                 //spawn enemy
-                MonsterController monster = Spawn(_monsters, _monsterPrefab, _monsterParent);
+                MonsterController monster = Instantiate(_monsterPrefab, randomSpawn, _monsterParent) as MonsterController;
+
+                //MonsterController monster = Spawn(_monsters, _monsterPrefab, _monsterParent);
                 monster.transform.position = randomSpawn.position;
                 _activeEnemies++;
             }
@@ -75,6 +77,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private MonsterController Spawn(List<MonsterController> list, MonsterController spawningItem, Transform parent)
     {
+        /*
         if (list.Count == 0)
             PoolManager.Instance.GeneratePooledObjects(list, spawningItem, parent);
 
@@ -83,7 +86,9 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
         itemToSpawn.gameObject.SetActive(true);
         return itemToSpawn;
+        */
 
+        return null;
     }
 
     private void ReturnToPool(MonsterController monster)

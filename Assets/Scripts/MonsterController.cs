@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour, IDamagable
 {
 
     public static event Action<MonsterController> OnMonsterDisable;
+    public static event Action<float> OnMonsterDeath;
 
     [SerializeField]
     private float _enemyValue = 5f;     //Used to store the points this enemy grants on death
@@ -15,10 +17,20 @@ public class MonsterController : MonoBehaviour, IDamagable
     [SerializeField]
     private float _maxHealth;
     public float CurrentHealth { get; set; }
+    [SerializeField]
+    private NavMeshAgent _agent;
+
 
     private void OnEnable()
     {
         CurrentHealth = _maxHealth;
+        transform.position = transform.position;
+        StartMoving();
+    }
+
+    private void OnDisable()
+    {
+        _agent.isStopped = false;
     }
 
     public void Damage(float damageAmount)
@@ -31,11 +43,23 @@ public class MonsterController : MonoBehaviour, IDamagable
         }
     }
 
+
+
+    private void StartMoving()
+    {
+        //_agent.Warp(transform.position);
+        _agent.enabled = true;
+        _agent.SetDestination(Vector3.zero);
+
+        //_agent.isStopped = false;
+    }
+
     public void Death()
     {
         //return to pool
-        OnMonsterDisable?.Invoke(this);
+        //OnMonsterDisable?.Invoke(this);
         //disable monster
         Debug.Log("I'm dead " + gameObject.name);
+        OnMonsterDeath?.Invoke(_enemyValue);
     }
 }
