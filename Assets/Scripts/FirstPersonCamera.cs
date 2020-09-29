@@ -50,7 +50,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     private Camera _cam;
     [SerializeField]
-    private bool _isWaveActive = false;
+    private bool _gameActive = false;
 
     private void Awake()
     {
@@ -58,6 +58,18 @@ public class FirstPersonCamera : MonoBehaviour
 
         if (_cam == null)
             Debug.LogError("No main camera set");
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameStart += GameStart;
+        MonsterEndGoal.OnEnemyReached += GameEnd;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameStart -= GameStart;
+        MonsterEndGoal.OnEnemyReached -= GameEnd;
     }
 
     private void Start()
@@ -76,10 +88,20 @@ public class FirstPersonCamera : MonoBehaviour
         _yaw = transform.localEulerAngles.y; // 0f;
     }
 
+    private void GameStart()
+    {
+        _gameActive = true;
+    }
+
+    private void GameEnd()
+    {
+        _gameActive = false;
+    }
+
     private void Update()
     {
         //prevent camera from moving between waves
-        if (_isWaveActive == false)
+        if (_gameActive == false)
             return;
 
         Pan();

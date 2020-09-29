@@ -5,6 +5,8 @@ using UnityEngine;
 public class Building : MonoBehaviour, IDamagable
 {
 
+    public static event System.Action<float> OnBuildingDamaged;
+
     [SerializeField]
     private float _penaltyPoints = 1f;  //Used to reduce the player's score when shot
     [SerializeField]
@@ -19,6 +21,7 @@ public class Building : MonoBehaviour, IDamagable
     public void Damage(float damageAmount)
     {
         CurrentHealth -= damageAmount;
+        OnBuildingDamaged?.Invoke(-1 * _penaltyPoints);
 
         if(CurrentHealth <= 0f)
         {

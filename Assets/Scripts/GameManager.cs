@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public static event Action OnGameStart;
-    public static event Action OnGameEnd;
+    public static event Action<float> OnScoreChanged;
 
     [SerializeField]
     private float _playerPoints = 0;
@@ -14,12 +14,18 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void OnEnable()
     {
-        
+        MonsterEndGoal.OnEnemyReached += EndGame;
+        MonsterController.OnMonsterDeath += AdjustScore;
+        Building.OnBuildingDamaged += AdjustScore;
+
+        AdjustScore(100);
     }
 
     private void OnDisable()
     {
-        
+        MonsterEndGoal.OnEnemyReached -= EndGame;
+        MonsterController.OnMonsterDeath += AdjustScore;
+        Building.OnBuildingDamaged -= AdjustScore;
     }
 
     public void BeginGame()
@@ -29,11 +35,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void EndGame()
     {
-        OnGameEnd?.Invoke();
+
     }
 
-    private void AdjustPoints(float points)
+    private void AdjustScore(float points)
     {
         _playerPoints += points;
+        OnScoreChanged?.Invoke(_playerPoints);
     }
+
 }

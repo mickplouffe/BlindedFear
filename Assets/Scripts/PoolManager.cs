@@ -16,10 +16,10 @@ public class PoolManager : MonoSingleton<PoolManager>
     }
 
     //Instantiates all one type of the same object
-    public List<GameObject> GeneratePooledObjects(List<GameObject> list, GameObject pooledItem, Transform parent)
+    public List<MonsterController> GeneratePooledObjects(List<MonsterController> list, MonsterController pooledItem, Transform parent)
     {
-        GameObject item = Instantiate(pooledItem, parent);
-        item.SetActive(false);
+        MonsterController item = Instantiate(pooledItem, parent);
+        item.gameObject.SetActive(false);
         list.Add(item);
 
         return list;
@@ -27,20 +27,20 @@ public class PoolManager : MonoSingleton<PoolManager>
     }
 
 
-            public GameObject RequestPooledObject(List<GameObject> list, bool randomly = false)
+    public MonsterController RequestPooledObject(List<MonsterController> list, bool randomly = false)
+    {
+
+
+        MonsterController item;
+        if (randomly == true)
         {
-
-
-            GameObject item;
-            if (randomly == true)
-            {
-                item = list[Random.Range(0, list.Count)];
-            }
-            else
-            {
-                item = list[0];
-            }
-            list.Remove(item);
-            return item;
+            item = list[Random.Range(0, list.Count)];
         }
+        else
+        {
+            item = list[0];
+        }
+        list.Remove(item);
+        return item;
+    }
 }
