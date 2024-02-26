@@ -1,5 +1,6 @@
 # BlindedFear
 A game for the No-Image Jam GameJam: https://itch.io/jam/no-image-jam
+
 Game link: https://itch.io/jam/no-image-jam/rate/770153
 
 ## Restrictions
