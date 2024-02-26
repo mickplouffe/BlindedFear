@@ -2,12 +2,11 @@
 A game for the No-Image Jam GameJam: https://itch.io/jam/no-image-jam
 Game link: https://itch.io/jam/no-image-jam/rate/770153
 
-## --- Restrictions ---
+## Restrictions
 Only Built-in editor and procedural textures are allowed. This game was made with URP Shader Graphs.
 
-## --- Story ---
-
+## Story
 The city is under attack of multiple giant monsters. You need to defend it with your dual canons.
 
-## --- Credit ---
+## Credit
 By Mickplouffe and Weenie Walker Games
